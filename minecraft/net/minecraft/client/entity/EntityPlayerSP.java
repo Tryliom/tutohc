@@ -1,5 +1,9 @@
 package net.minecraft.client.entity;
 
+import org.lwjgl.input.Keyboard;
+
+import client.Client;
+import client.module.Module;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -188,6 +192,14 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public void onUpdateWalkingPlayer()
     {
+    	
+    	Client client = Client.getInstance();
+    	for (Module m : client.getModulemanager().getModules()) {
+    		if (m.isToggled()) {
+    			m.onUpdate();
+    		}
+    	}
+    	
         boolean flag = this.isSprinting();
 
         if (flag != this.serverSprintState)
