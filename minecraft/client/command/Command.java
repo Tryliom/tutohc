@@ -1,5 +1,7 @@
 package client.command;
 
+import java.io.IOException;
+
 import client.utils.Utils;
 
 public class Command {
@@ -11,7 +13,7 @@ public class Command {
 	
 	protected Utils utils = Utils.getInstance();
 	
-	public void onCommand(String[] args) {}
+	public void onCommand(String[] args) throws IOException {}
 
 	public String getName() {
 		return name;

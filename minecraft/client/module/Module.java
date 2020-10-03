@@ -1,5 +1,8 @@
 package client.module;
 
+import java.io.IOException;
+
+import client.utils.SaveUtils;
 import client.utils.Utils;
 import net.minecraft.client.Minecraft;
 
@@ -21,13 +24,15 @@ public class Module {
 		return isToggled;
 	}
 
-	public void toggle(boolean toggle) {
+	public void toggle(boolean toggle) throws IOException {
 		this.isToggled = toggle;
 		if (toggle) {
 			this.onEnabled();
 		} else {
 			this.onDisabled();
 		}
+		
+		SaveUtils.getInstance().saveModules();
 	}
 
 	public String getName() {

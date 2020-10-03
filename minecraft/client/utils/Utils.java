@@ -1,12 +1,15 @@
 package client.utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import client.Client;
 import client.command.Command;
 import client.command.CommandType;
 import client.manager.CommandManager;
+import client.manager.ModuleManager;
 import client.manager.ValueManager;
+import client.module.Module;
 import client.value.Type;
 import client.value.Value;
 import net.minecraft.client.Minecraft;
@@ -17,13 +20,15 @@ public class Utils {
 	private Minecraft mc = Minecraft.getMinecraft();
 	private Client client = Client.getInstance();
 	private ValueManager valuemanager = client.getValuemanager();
+	private ModuleManager modulemanager = client.getModulemanager();
 	
 	public static Utils getInstance() {
 		return instance;
 	}
 	
 	public void sendChat(String text) {
-		mc.ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("[Client] "+text));
+		if (mc.ingameGUI != null)
+			mc.ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("[Client] "+text));
 	}
 	
 	public Value getValueByType(Type name) {
@@ -33,6 +38,21 @@ public class Utils {
 			}
 		}
 		return null;
+	}
+	
+	public Boolean isValueType(String name) {
+		try {
+			Type.valueOf(name);
+			return true;
+		} catch (Exception e) {}
+		return false;
+	}
+	
+	public void toggleModule(String name) throws IOException {
+		for (Module m : modulemanager.getModules()) {
+			if (m.getName().equalsIgnoreCase(name))
+				m.toggle(!m.isToggled());
+		}
 	}
 	
 	public ArrayList<Command> getCommandByType(CommandType type) {
@@ -49,14 +69,14 @@ public class Utils {
 	public Command getCommandStartByName(String name) {
 		CommandManager commandManager = client.getCommandmanager();
 		for (Command cmd : commandManager.getCommands()) {
-			if (name.startsWith(cmd.getName()))
+			if (name.startsWith(cmd.getName())) 
 				return cmd;
 		}
 		
 		return null;
 	}
 	
-	public void onCommand(String message) {
+	public void onCommand(String message) throws IOException {
 		Command cmd = this.getCommandStartByName(message);
 		String[] args = message.split(" ");
 		
