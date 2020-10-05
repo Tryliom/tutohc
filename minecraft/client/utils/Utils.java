@@ -13,6 +13,8 @@ import client.module.Module;
 import client.value.Type;
 import client.value.Value;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.util.ChatComponentText;
 
 public class Utils {
@@ -91,6 +93,10 @@ public class Utils {
 		} else {
 			this.sendChat("§cCommande inexistante !");
 		}
+	}
+	
+	public void attackEntity(Entity en) {
+		mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(en, C02PacketUseEntity.Action.ATTACK));
 	}
 }
 
