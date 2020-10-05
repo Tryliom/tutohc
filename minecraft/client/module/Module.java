@@ -13,6 +13,7 @@ public class Module {
 	
 	protected boolean isToggled;
 	protected Minecraft mc = Minecraft.getMinecraft();
+	protected Utils utils = Utils.getInstance();
 	
 	public Module(String name, int bind, Category category) {
 		this.name = name;

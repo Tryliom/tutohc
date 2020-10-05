@@ -2,6 +2,7 @@ package client.manager;
 
 import java.util.ArrayList;
 
+import client.enums.Mode;
 import client.value.Type;
 import client.value.Value;
 
@@ -10,6 +11,8 @@ public class ValueManager {
 
 	public ValueManager() {
 		this.values.add(new Value(Type.prefixCmd, ".."));
+		this.values.add(new Value(Type.killAuraCps, 5));
+		this.values.add(new Value(Type.killAuraMode, Mode.Single.name()));
 	}
 
 	public ArrayList<Value> getValues() {
