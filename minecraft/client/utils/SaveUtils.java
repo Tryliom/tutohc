@@ -1,12 +1,14 @@
 package client.utils;
 
-import java.util.List;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 
 import client.Client;
+import client.enums.Mode;
+import client.enums.TargetMode;
 import client.manager.ModuleManager;
 import client.manager.ValueManager;
 import client.module.Module;
@@ -68,6 +70,18 @@ public class SaveUtils {
 			if (v.getValue() instanceof String) {
 				content += v.getValueAsString();
 			}
+			
+			if (v.getValue() instanceof Integer) {
+				content += v.getValueAsInteger();
+			}
+			
+			if (v.getValue() instanceof Mode) {
+				content += v.getValueAsMode().name();
+			}
+			
+			if (v.getValue() instanceof TargetMode) {
+				content += v.getValueAsMode().name();
+			}
 		}
 		
 		this.saveContentToFile("values", content);
@@ -101,6 +115,18 @@ public class SaveUtils {
 				
 				if (value.getValue() instanceof String) {
 					value.setValue(rawValue);
+				}
+				
+				if (value.getValue() instanceof Integer) {
+					value.setValue(Integer.parseInt(rawValue));
+				}
+				
+				if (value.getValue() instanceof Mode) {
+					value.setValue(Mode.valueOf(rawValue));
+				}
+				
+				if (value.getValue() instanceof TargetMode) {
+					value.setValue(TargetMode.valueOf(rawValue));
 				}
 			}
 		}

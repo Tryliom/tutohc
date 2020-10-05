@@ -13,7 +13,9 @@ import client.module.Module;
 import client.value.Type;
 import client.value.Value;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.util.ChatComponentText;
 
@@ -87,7 +89,11 @@ public class Utils {
 			if (args.length < cmd.getMinArgs()) {
 				this.sendChat("§cErreur, il manque des arguments");
 			} else {
-				cmd.onCommand(args);
+				try {
+					cmd.onCommand(args);
+				} catch (Exception e) {
+					this.sendChat("§cErreur dans la commande");
+				}
 			}
 			
 		} else {
@@ -97,6 +103,19 @@ public class Utils {
 	
 	public void attackEntity(Entity en) {
 		mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(en, C02PacketUseEntity.Action.ATTACK));
+	}
+	
+	public boolean isPlayer(Entity en) {
+		for (EntityPlayer entity : mc.theWorld.playerEntities) {
+           
+            if(entity instanceof EntityPlayerSP) continue;
+            
+            if (en.getName().endsWith(entity.getName())) {
+        		return true;
+        	}
+		}
+		
+		return false;
 	}
 }
 

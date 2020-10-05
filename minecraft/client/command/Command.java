@@ -2,6 +2,8 @@ package client.command;
 
 import java.io.IOException;
 
+import client.Client;
+import client.manager.ValueManager;
 import client.utils.Utils;
 
 public class Command {
@@ -12,6 +14,7 @@ public class Command {
 	private CommandType type;
 	
 	protected Utils utils = Utils.getInstance();
+	protected ValueManager vm = Client.getInstance().getValuemanager();
 	
 	public void onCommand(String[] args) throws IOException {}
 

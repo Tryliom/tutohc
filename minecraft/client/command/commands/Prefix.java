@@ -14,7 +14,7 @@ public class Prefix extends Command {
 	}
 	
 	public void onCommand(String[] args) throws IOException {
-		utils.getValueByType(Type.prefixCmd).setValue(args[1]);
+		vm.setPrefixCmd(args[1]);
 		utils.sendChat("§aPréfix redéfinit en "+args[1]);
 		SaveUtils.getInstance().saveValues();
 	}

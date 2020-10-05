@@ -1,5 +1,8 @@
 package client.value;
 
+import client.enums.Mode;
+import client.enums.TargetMode;
+
 public class Value {
 	private Type name;
 	private Object value;
@@ -32,5 +35,13 @@ public class Value {
 
 	public Float getValueAsFloat() {
 		return (Float) this.value;
+	}
+	
+	public Mode getValueAsMode() {
+		return (Mode) this.value;
+	}
+	
+	public TargetMode getValueAsTargetMode() {
+		return (TargetMode) this.value;
 	}
 }
